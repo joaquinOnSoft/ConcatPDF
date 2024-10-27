@@ -20,7 +20,7 @@ public class PDFUtil {
      *     PDFBox - Merging Multiple PDF Documents
      *     </a>
      */
-    public static void autoConcat(String input, String output, int copies) throws IOException {
+    public static File autoConcat(String input, String output, int copies) throws IOException {
         PDFMergerUtility pdfMerger = new PDFMergerUtility();
         pdfMerger.setDestinationFileName(output);
         pdfMerger.setDocumentMergeMode(
@@ -37,5 +37,7 @@ public class PDFUtil {
         RandomAccessStreamCache.StreamCacheCreateFunction streamCache =
                 IOUtils.createMemoryOnlyStreamCache();
         pdfMerger.mergeDocuments(streamCache);
+
+        return new File(output);
     }
 }
