@@ -1,3 +1,5 @@
+import org.gradle.jvm.tasks.Jar
+
 plugins {
     id("java")
 }
@@ -24,6 +26,32 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter")
 }
 
+// Apply a specific Java toolchain to ease working on different environments.
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(21))
+    }
+}
+
 tasks.test {
     useJUnitPlatform()
+}
+
+
+val fatJar = task("fatJar", type = Jar::class) {
+    //baseName = "${project.name}-${version}"
+    manifest {
+        attributes["Implementation-Title"] = "Concat PDF"
+        attributes["Implementation-Version"] = version
+        attributes["Main-Class"] = "com.joaquinonsoft.concatpdf.ConcatPDF"
+    }
+    from(configurations.runtimeClasspath.get().map({ if (it.isDirectory) it else zipTree(it) }))
+    with(tasks.jar.get() as CopySpec)
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+tasks {
+    "build" {
+        dependsOn(fatJar)
+    }
 }

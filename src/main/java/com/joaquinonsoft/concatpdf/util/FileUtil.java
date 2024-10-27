@@ -12,7 +12,7 @@ public class FileUtil {
      *     Java – Read a file from resources folder
      * </a>
      * @param fileName - File name
-     * @return
+     * @return file from resources folder that matches the given file name/path
      */
     public static File getFileFromResources(String fileName) {
         URL resource = FileUtil.class.getClassLoader().getResource(fileName);

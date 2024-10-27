@@ -10,16 +10,12 @@ public class ConcatPDF {
     private static final String HELP = """
 		Concat a pdf input file "n" times in the output pdf file
 		
-		Accepted parameters:
-
-		-i --input Input pdf file
-		-o --output Output pdf file
-		-c --copies Number of copies
-		-h --help Print the help
-		
 		Invocation example:
 
-		java -jar ConcatPDF-2024.10.26.jar --input sample.pdf --output sampleBig.pdf --copies 10
+		    java -jar ConcatPDF-2024.10.26.jar --input sample.pdf --output sampleBig.pdf --copies 10
+		
+		Accepted parameters:
+
 		""";
 
     private static final String LONG_OPT_INPUT = "input";
@@ -44,7 +40,7 @@ public class ConcatPDF {
 
         CommandLineParser parser = new DefaultParser();
         HelpFormatter formatter = new HelpFormatter();
-        CommandLine cmd = null;
+        CommandLine cmd;
 
 
         try {
